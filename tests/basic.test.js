@@ -48,6 +48,24 @@ describe('Test event triggering', () => {
         assert.equal(beforeInputEvent.data, inputEvent.data)
     })
 
+    it('triggers beforeinput and input events on typing Shift+RETURN', async () => {
+        await driver.get('file:///' + __dirname +'/../index.html')
+        await driver.findElement(By.id('editor')).click()
+        await driver.findElement(By.id('editor')).sendKeys(Key.chord(Key.SHIFT, Key.RETURN))
+
+        const inputEventsEl = await driver.findElement(By.id('input-events'))
+        const eventsLog = await inputEventsEl.getAttribute("innerHTML").then(html => JSON.parse(html))
+
+        assert.equal(eventsLog.length, 2)
+        const beforeInputEvent = eventsLog[0]
+        const inputEvent = eventsLog[1]
+        assert.equal(beforeInputEvent.type, 'beforeinput')
+        assert.equal(inputEvent.type, 'input')
+        assert.equal(beforeInputEvent.inputType, 'insertLineBreak')
+        assert.equal(inputEvent.inputType, 'insertLineBreak')
+        assert.equal(beforeInputEvent.data, inputEvent.data)
+    })
+
     it('triggers beforeinput and input events on typing DELETE with pre-existing content', async () => {
         await driver.get('file:///' + __dirname +'/../index.html?<p>Preexisting <i id="caret">c</i>ontent</p>')
 
