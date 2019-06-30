@@ -1,0 +1,19 @@
+{
+  "name": "input-events-testing",
+  "version": "0.0.1",
+  "description": "Testing of input events",
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "author": "Johannes Wilm",
+  "license": "W3C-20150513",
+  "dependencies": {
+    "chromedriver": "^74.0.0",
+    "jest": "^24.7.1",
+    "selenium-webdriver": "^4.0.0-alpha.4"
+  },
+  "devDependencies": {
+    "eslint": "^6.0.1"
+  }
+}

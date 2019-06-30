@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+  <h1>Input events tests</h1>
+  <div contenteditable="true" id="editor"></div>
+  <div id="input-events">[]</div>
+  <div>Platform: <span id="platform"></span></div>
+  <script>
+    document.getElementById('platform').innerHTML = navigator.platform
+    if (window.location.search.length) {
+        document.getElementById('editor').innerHTML = decodeURIComponent(window.location.search.slice(1))
+    }
+    function log(event) {
+      const inputEventsEl = document.getElementById('input-events')
+      const eventsLog = JSON.parse(inputEventsEl.innerHTML)
+      eventsLog.push({
+        type: event.type,
+        inputType: event.inputType,
+        data: event.data,
+        isComposing: event.isComposing,
+        cancelable: event.cancelable,
+        state: encodeURI(document.getElementById('editor').innerHTML)
+      })
+      inputEventsEl.innerHTML = JSON.stringify(eventsLog)
+    }
+    document.getElementById('editor').addEventListener('beforeinput', event => log(event))
+    document.getElementById('editor').addEventListener('input', event => log(event))
+    function reset() {
+      document.getElementById('editor').innerHTML = ''
+      document.getElementById('input-events').innerHTML = '[]'
+    }
+  </script>
+</body>
+</html>
