@@ -27,6 +27,7 @@
     }
     document.getElementById('editor').addEventListener('beforeinput', event => log(event))
     document.getElementById('editor').addEventListener('input', event => log(event))
+    document.getElementById('editor').addEventListener('paste', event => log(event))
     function reset() {
       document.getElementById('editor').innerHTML = ''
       document.getElementById('input-events').innerHTML = '[]'
