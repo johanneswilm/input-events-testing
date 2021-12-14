@@ -24,6 +24,7 @@
         state: encodeURI(document.getElementById('editor').innerHTML)
       })
       inputEventsEl.innerHTML = JSON.stringify(eventsLog)
+      console.log(event)
     }
     document.getElementById('editor').addEventListener('beforeinput', event => log(event))
     document.getElementById('editor').addEventListener('input', event => log(event))
